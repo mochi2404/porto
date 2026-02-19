@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farell Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f4ed;
+      --paper:#fffdf8;
+      --text:#1c2329;
+      --muted:#55606d;
+      --primary:#0a7f63;
+      --primary-strong:#065f4b;
+      --secondary:#f5b100;
+      --card:#ffffff;
+      --line:#d5ddd7;
+      --ease:cubic-bezier(.22,.61,.36,1);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:"Sora", sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, #ffd98d55, transparent 30%),
+        radial-gradient(circle at 85% 5%, #94dbbe66, transparent 35%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      min-height:100vh;
+    }
+
+    header{
+      width:100%;
+      margin:0;
+      padding:14px 4% 12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px 14px;
+      flex-wrap:wrap;
+      position:sticky;
+      top:0;
+      z-index:10;
+      backdrop-filter: blur(10px);
+      background:rgba(247, 244, 237, 0.82);
+      border-bottom:1px solid #d9e2dc;
+    }
+
+    .logo{
+      font-family:"Space Grotesk", sans-serif;
+      font-size:22px;
+      letter-spacing:1px;
+      font-weight:700;
+      color:var(--primary-strong);
+    }
+
+    nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      justify-content:flex-end;
+    }
+
+    nav a{
+      padding:7px 11px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:500;
+      font-size:.95rem;
+      line-height:1.2;
+      border-radius:999px;
+      transition:background-color .28s var(--ease), color .28s var(--ease), transform .28s var(--ease);
+    }
+
+    #about,
+    #skills,
+    #portfolio,
+    #foto-meta,
+    #landing-page,
+    #cv,
+    #contact{
+      scroll-margin-top:110px;
+    }
+
+    nav a:hover{
+      background:#e2eee8;
+      color:var(--primary-strong);
+    }
+
+    .hero{
+      width:min(1120px, 92%);
+      margin:0 auto;
+      padding:72px 0 20px;
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:36px;
+      align-items:center;
+    }
+
+    .hero h1{
+      font-family:"Space Grotesk", sans-serif;
+      font-size:clamp(2.4rem, 6vw, 4.6rem);
+      line-height:1.05;
+      margin-bottom:18px;
+      max-width:13ch;
+    }
+
+    .hero span{
+      color:var(--primary);
+      text-shadow:3px 3px 0 #d4ecdf;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:1.02rem;
+      max-width:58ch;
+      margin-bottom:26px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 26px;
+      background:var(--primary);
+      color:white;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:600;
+      transition:transform .28s var(--ease), background-color .28s var(--ease), box-shadow .28s var(--ease);
+      border:2px solid transparent;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      background:var(--primary-strong);
+      box-shadow:0 10px 26px rgba(6,95,75,.2);
+    }
+
+    .btn-outline{
+      display:inline-block;
+      padding:13px 26px;
+      border:2px solid var(--primary);
+      color:var(--primary-strong);
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:600;
+      transition:transform .28s var(--ease), background-color .28s var(--ease);
+      background:#eef8f4;
+    }
+
+    .btn-outline:hover{
+      transform:translateY(-2px);
+      background:#ddf1e9;
+    }
+
+    .card{
+      background:var(--card);
+      padding:28px;
+      border-radius:20px;
+      border:1px solid var(--line);
+      box-shadow:0 18px 48px rgba(56, 76, 70, .12);
+    }
+
+    .profile-img{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      border-radius:14px;
+      display:block;
+    }
+
+    .profile-media{
+      position:relative;
+      border-radius:14px;
+      overflow:hidden;
+      margin-bottom:16px;
+    }
+
+    .profile-media::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:52%;
+      background:linear-gradient(
+        0deg,
+        rgba(255,253,248,.98) 0%,
+        rgba(255,253,248,.78) 30%,
+        rgba(255,253,248,.34) 58%,
+        rgba(255,253,248,0) 100%
+      );
+      pointer-events:none;
+    }
+
+    .section{
+      width:min(1120px, 92%);
+      margin:0 auto;
+      padding:80px 0 0;
+    }
+
+    .section:last-of-type{
+      padding-bottom:30px;
+    }
+
+    .title{
+      font-family:"Space Grotesk", sans-serif;
+      font-size:clamp(1.8rem, 4.5vw, 2.5rem);
+      margin-bottom:22px;
+      line-height:1.2;
+    }
+
+    .skills{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      align-items:stretch;
+    }
+
+    .skills-lead{
+      color:var(--muted);
+      max-width:70ch;
+      margin:-6px 0 16px;
+    }
+
+    .skill{
+      background:linear-gradient(180deg, #ffffff, #f8fdfb);
+      padding:20px;
+      border-radius:14px;
+      text-align:left;
+      transition:transform .28s var(--ease), border-color .28s var(--ease), box-shadow .28s var(--ease);
+      border:1px solid var(--line);
+      font-weight:500;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+    }
+
+    .skill:hover{
+      transform:translateY(-4px);
+      border-color:#93c9b6;
+      box-shadow:0 10px 25px rgba(10,127,99,.12);
+    }
+
+    .skill-icon{
+      width:38px;
+      height:38px;
+      border-radius:10px;
+      display:grid;
+      place-items:center;
+      flex:0 0 38px;
+      background:linear-gradient(145deg, #e8f7f1, #d8efe6);
+      color:var(--primary-strong);
+      border:1px solid #c2dfd2;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+    }
+
+    .skill-icon svg{
+      width:20px;
+      height:20px;
+      display:block;
+    }
+
+    .skill-label{
+      line-height:1.35;
+    }
+
+    .skill-body h3{
+      font-family:"Space Grotesk", sans-serif;
+      font-size:1.02rem;
+      line-height:1.25;
+      margin-bottom:4px;
+    }
+
+    .skill-body p{
+      color:var(--muted);
+      font-size:.9rem;
+      line-height:1.45;
+    }
+
+    .contact-box{
+      background:var(--paper);
+      padding:28px;
+      border-radius:18px;
+      max-width:560px;
+      border:1px solid var(--line);
+    }
+
+    .contact-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .contact-item:last-of-type{
+      margin-bottom:0;
+    }
+
+    .contact-icon{
+      width:20px;
+      height:20px;
+      flex:0 0 20px;
+    }
+
+    .contact-link{
+      color:var(--primary-strong);
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .contact-link:hover{
+      text-decoration:underline;
+    }
+
+    .cv-box{
+      background:var(--paper);
+      padding:28px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      max-width:900px;
+    }
+
+    .cv-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .portfolio-card{
+      max-width:900px;
+      margin:auto;
+    }
+
+    .lp-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:14px;
+    }
+
+    .meta-photo-grid{
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      padding-bottom:8px;
+      scrollbar-width:thin;
+      scrollbar-color:#9fb9ad #e7efe9;
+    }
+
+    .meta-photo-item{
+      flex:0 0 min(90vw, 560px);
+      aspect-ratio:16/9;
+      scroll-snap-align:start;
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 8px 20px rgba(56,76,70,.08);
+      transition:transform .28s var(--ease), box-shadow .28s var(--ease);
+    }
+
+    .meta-photo-item:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 28px rgba(56,76,70,.12);
+    }
+
+    .meta-photo-item img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .lp-card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 10px 25px rgba(56,76,70,.08);
+      transition:transform .28s var(--ease), box-shadow .28s var(--ease);
+    }
+
+    .lp-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 30px rgba(56,76,70,.14);
+    }
+
+    .lp-thumb{
+      width:100%;
+      aspect-ratio:3/4;
+      object-fit:cover;
+      display:block;
+      border-bottom:1px solid var(--line);
+    }
+
+    .lp-thumb-contain{
+      object-fit:contain;
+      background:#f2f7f4;
+      padding:10px;
+    }
+
+    .lp-content{
+      padding:14px;
+    }
+
+    .lp-content h3{
+      font-family:"Space Grotesk", sans-serif;
+      margin-bottom:6px;
+      font-size:1.05rem;
+      line-height:1.25;
+    }
+
+    .lp-content p{
+      color:var(--muted);
+      font-size:.92rem;
+      margin-bottom:10px;
+    }
+
+    .meta-project{
+      max-width:900px;
+      margin:16px auto 0;
+    }
+
+    .meta-project h3{
+      font-family:"Space Grotesk", sans-serif;
+      margin-bottom:8px;
+      line-height:1.25;
+    }
+
+    .meta-project-note{
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+
+    .album-track{
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      padding-bottom:8px;
+      scrollbar-width:thin;
+      scrollbar-color:#9fb9ad #e7efe9;
+    }
+
+    .album-item{
+      flex:0 0 min(86vw, 420px);
+      aspect-ratio:3/4;
+      scroll-snap-align:start;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid #c8d7d0;
+      background:#f4faf7;
+    }
+
+    .album-item img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+    }
+
+    .portfolio-card video{
+      width:100%;
+      border-radius:12px;
+      border:1px solid #c8d7d0;
+    }
+
+    .portfolio-card .drive-video{
+      width:100%;
+      aspect-ratio:16/9;
+      border-radius:12px;
+      border:1px solid #c8d7d0;
+    }
+
+    .hero > div{
+      opacity:0;
+      transform:translateY(18px);
+      animation:fadeUp .7s var(--ease) forwards;
+    }
+
+    .hero > div:nth-child(2){
+      animation-delay:.12s;
+    }
+
+    @keyframes fadeUp{
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    footer{
+      text-align:center;
+      padding:44px 20px 56px;
+      border-top:1px solid #d6e0d9;
+      color:var(--muted);
+      margin-top:72px;
+      background:linear-gradient(
+        0deg,
+        rgba(214,224,217,.9) 0%,
+        rgba(229,240,233,.58) 42%,
+        rgba(247,244,237,0) 100%
+      );
+    }
+
+    @media(max-width:980px){
+      .hero{
+        grid-template-columns:1fr;
+        padding-top:48px;
+      }
+
+      .hero h1{
+        max-width:none;
+      }
+
+      .card{
+        padding:20px;
+      }
+    }
+
+    @media(max-width:560px){
+      header{
+        justify-content:center;
+        padding:10px 0;
+      }
+
+      .logo{
+        width:100%;
+        text-align:center;
+        font-size:20px;
+      }
+
+      nav{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+        overflow:visible;
+        gap:4px;
+      }
+
+      nav::-webkit-scrollbar{
+        display:none;
+      }
+
+      nav a{
+        font-size:.84rem;
+        padding:6px 9px;
+      }
+
+      .hero{
+        padding-top:32px;
+      }
+
+      .section{
+        padding-top:58px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">FAREL</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#foto-meta">Meta Ads</a>
+    <a href="#landing-page">Landing Page</a>
+    <a href="#cv">CV</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="about">
+  <div>
+    <h1>Creative Worker untuk <span>Digital Brand</span></h1>
+    <p>
+      Saya Farel Afta Piandra, digital creator dari Padang, Sumatra Barat.
+      Fokus pada desain, editing, coding, marketing, dan digital business.
+      Siap bekerja secara profesional untuk project freelance maupun kerja fulltime.
+    </p>
+    <a class="btn" href="#contact">Hubungi Saya</a>
+  </div>
+
+  <div class="card">
+    <div class="profile-media">
+      <img class="profile-img" src="foto/farel.png" alt="Foto Farel Afta Piandra">
+    </div>
+    <h2>Farel Afta Piandra</h2>
+    <p style="color:var(--muted)">19 Tahun - Digital Creator - Padang</p>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <h2 class="title">Kemampuan</h2>
+  <p class="skills-lead">Gabungan kemampuan kreatif dan teknis untuk membantu branding, traffic, dan konversi digital.</p>
+  <div class="skills">
+    <div class="skill">
+      <span class="skill-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V5Zm4 2v8l6-4-6-4Z"/></svg>
+      </span>
+      <div class="skill-body">
+        <h3 class="skill-label">Editing Video (CapCut)</h3>
+        <p>Menyusun video promosi, short content, dan ads creative dengan ritme cepat.</p>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25Zm17.71-10.04a1 1 0 0 0 0-1.41l-2.51-2.51a1 1 0 0 0-1.41 0l-1.96 1.96 3.75 3.75 2.13-1.79Z"/></svg>
+      </span>
+      <div class="skill-body">
+        <h3 class="skill-label">Desain Grafis (Canva)</h3>
+        <p>Membuat visual feed, poster, dan materi promosi yang konsisten dengan brand.</p>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm0-18v6h8V3h-8Z"/></svg>
+      </span>
+      <div class="skill-body">
+        <h3 class="skill-label">Meta Ads (Facebook & Instagram Ads)</h3>
+        <p>Setup campaign, testing creative, dan optimasi performa traffic, leads, hingga sales.</p>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4h10l1 2h3v2h-1l-1.1 9.2A3 3 0 0 1 15.92 20H8.08a3 3 0 0 1-2.98-2.8L4 8H3V6h3l1-2Zm1.24 4 .86 7h6.8l.86-7H8.24ZM9 18a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
+      </span>
+      <div class="skill-body">
+        <h3 class="skill-label">Jualan Online & Digital Product</h3>
+        <p>Mengemas penawaran produk digital, copy sederhana, dan CTA yang mudah dieksekusi.</p>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6l-3.2 3.2a1 1 0 0 1-1.6-.8V16H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm2 3v2h12V8H6Zm0 4v2h8v-2H6Z"/></svg>
+      </span>
+      <div class="skill-body">
+        <h3 class="skill-label">Social Media Admin</h3>
+        <p>Menjadwalkan konten, merapikan komunikasi akun, dan menjaga konsistensi brand voice.</p>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 3h8v2H8V3Zm8 18H8v-2h8v2Zm3-14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2v-2h2V9H5v6h2v2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14Zm-7 3 4 2-4 2v-4Z"/></svg>
+      </span>
+      <div class="skill-body">
+        <h3 class="skill-label">Coding & Web Basic</h3>
+        <p>Membangun halaman web sederhana, struktur HTML/CSS, dan optimasi tampilan responsif.</p>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h10a2 2 0 0 1 2 2v5h-2V7H7v10h5v2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm8.5 8.5L19 11v10h-10l2.5-3.5h4Z"/></svg>
+      </span>
+      <div class="skill-body">
+        <h3 class="skill-label">Streaming Event</h3>
+        <p>Menangani kebutuhan streaming untuk event, webinar, dan siaran live kegiatan komunitas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="portfolio">
+  <h2 class="title">Karya Video Editing</h2>
+  <div class="card portfolio-card">
+    <iframe
+      class="drive-video"
+      src="https://drive.google.com/file/d/1Ia1AayCYfLyxvC9cnI8SippPytnCSIme/preview"
+      title="Video portfolio Farel"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+    <p style="margin-top:15px;color:var(--muted)">
+      Sample karya editing video oleh Farel Afta Piandra.
+    </p>
+  </div>
+  <div class="card meta-project">
+    <h3>Project Meta Ads - HMA (Healthy Mastery Academy)</h3>
+    <p class="meta-project-note">
+      Kumpulan creative iklan yang pernah dijalankan. Geser ke samping untuk melihat semua materi.
+    </p>
+    <div class="album-track" aria-label="Album project Meta Ads HMA">
+      <figure class="album-item"><img src="foto/HMA/Bekam%20Cinta.png" alt="Creative HMA Bekam Cinta"></figure>
+      <figure class="album-item"><img src="foto/HMA/Bekam%20Cinta%281%29.png" alt="Creative HMA Bekam Cinta versi 2"></figure>
+      <figure class="album-item"><img src="foto/HMA/Healthy%20Mastery%20Academy%201.png" alt="Creative HMA Healthy Mastery Academy 1"></figure>
+      <figure class="album-item"><img src="foto/HMA/Healthy%20Mastery%20Academy%202.png" alt="Creative HMA Healthy Mastery Academy 2"></figure>
+      <figure class="album-item"><img src="foto/HMA/Healthy%20Mastery%20Academy%203.png" alt="Creative HMA Healthy Mastery Academy 3"></figure>
+      <figure class="album-item"><img src="foto/HMA/Healthy%20Mastery%20Academy%20Lutut%20Persendian%20Batch%203.png" alt="Creative HMA Lutut Persendian Batch 3"></figure>
+      <figure class="album-item"><img src="foto/HMA/Herbalogi%20Dasar.png" alt="Creative HMA Herbalogi Dasar"></figure>
+      <figure class="album-item"><img src="foto/HMA/Herbalogi%20Dasar%281%29.png" alt="Creative HMA Herbalogi Dasar versi 2"></figure>
+      <figure class="album-item"><img src="foto/HMA/Hipertensi.png" alt="Creative HMA Hipertensi"></figure>
+      <figure class="album-item"><img src="foto/HMA/Iridology.png" alt="Creative HMA Iridology"></figure>
+      <figure class="album-item"><img src="foto/HMA/Iridology%281%29.png" alt="Creative HMA Iridology versi 2"></figure>
+      <figure class="album-item"><img src="foto/HMA/Jantung.png" alt="Creative HMA Jantung"></figure>
+      <figure class="album-item"><img src="foto/HMA/Tulang%20Belakang.png" alt="Creative HMA Tulang Belakang"></figure>
+    </div>
+  </div>
+  <div class="card meta-project">
+    <h3>Project Meta Ads - KR (Kelas Ranjang)</h3>
+    <p class="meta-project-note">
+      Kumpulan creative iklan untuk campaign Kelas Ranjang. Geser ke samping untuk melihat semua materi.
+    </p>
+    <div class="album-track" aria-label="Album project Meta Ads KR">
+      <figure class="album-item"><img src="foto/KR/Flayer%20Benefit%20KR.png" alt="Creative KR Flayer Benefit"></figure>
+      <figure class="album-item"><img src="foto/KR/Flayer%20Hook%20KR%201.png" alt="Creative KR Flayer Hook 1"></figure>
+      <figure class="album-item"><img src="foto/KR/Flayer%20Hook%20KR%203.png" alt="Creative KR Flayer Hook 3"></figure>
+      <figure class="album-item"><img src="foto/KR/Flayer%20Hook%20KR%204.png" alt="Creative KR Flayer Hook 4"></figure>
+      <figure class="album-item"><img src="foto/KR/Flayer%20Hook%20KR%205.png" alt="Creative KR Flayer Hook 5"></figure>
+      <figure class="album-item"><img src="foto/KR/Flayer%20Kelas%20Kualitas%20Ranjang.png" alt="Creative KR Flayer Kelas Kualitas Ranjang"></figure>
+      <figure class="album-item"><img src="foto/KR/Flayer%20Teks%201.png" alt="Creative KR Flayer Teks 1"></figure>
+      <figure class="album-item"><img src="foto/KR/Flayer%20Teks%202.png" alt="Creative KR Flayer Teks 2"></figure>
+      <figure class="album-item"><img src="foto/KR/Kelas%20Kualitas%20Ranjang%20%281%29.png" alt="Creative KR Kelas Kualitas Ranjang"></figure>
+      <figure class="album-item"><img src="foto/KR/KR%20Sesi%201.png" alt="Creative KR Sesi 1"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="foto-meta">
+  <h2 class="title">Meta Ads</h2>
+  <div class="meta-photo-grid">
+    <figure class="meta-photo-item"><img src="foto/Meta/photo_2026-02-19_16-38-57.jpg" alt="Foto Meta Ads 1"></figure>
+    <figure class="meta-photo-item"><img src="foto/Meta/photo_2026-02-19_16-38-59.jpg" alt="Foto Meta Ads 2"></figure>
+    <figure class="meta-photo-item"><img src="foto/Meta/photo_2026-02-19_16-39-00.jpg" alt="Foto Meta Ads 3"></figure>
+    <figure class="meta-photo-item"><img src="foto/Meta/photo_2026-02-19_16-39-03.jpg" alt="Foto Meta Ads 4"></figure>
+    <figure class="meta-photo-item"><img src="foto/Meta/photo_2026-02-19_16-39-07.jpg" alt="Foto Meta Ads 5"></figure>
+  </div>
+</section>
+
+<section class="section" id="landing-page">
+  <h2 class="title">Landing Page Produk</h2>
+  <div class="lp-grid">
+    <article class="lp-card">
+      <img class="lp-thumb" src="foto/HMA/Bekam%20Cinta.png" alt="Landing page Healthy Mastery Academy">
+      <div class="lp-content">
+        <h3>Healthy Mastery Academy</h3>
+        <p>Landing page produk edukasi kesehatan dengan fokus headline, benefit, dan CTA WhatsApp.</p>
+        <a class="btn-outline" href="https://healthymastery.id/" target="_blank" rel="noopener" aria-label="Lihat landing page Healthy Mastery Academy">Lihat Landing Page</a>
+      </div>
+    </article>
+    <article class="lp-card">
+      <img class="lp-thumb" src="foto/KR/KR%20Sesi%201.png" alt="Landing page Kelas Ranjang">
+      <div class="lp-content">
+        <h3>Kelas Kualitas Ranjang</h3>
+        <p>Landing page untuk campaign kelas online dengan struktur offer, social proof, dan form kontak.</p>
+        <a class="btn-outline" href="https://zoominar.live/kualitasranjang" target="_blank" rel="noopener" aria-label="Lihat landing page Kelas Kualitas Ranjang">Lihat Landing Page</a>
+      </div>
+    </article>
+    <article class="lp-card">
+      <img class="lp-thumb lp-thumb-contain" src="foto/eduscale.jpg" alt="Landing page Agensi">
+      <div class="lp-content">
+        <h3>Landing Page Agensi</h3>
+        <p>Landing page jasa agensi dengan struktur penawaran, portfolio, dan CTA konsultasi.</p>
+        <a class="btn-outline" href="https://eduscale.id" target="_blank" rel="noopener" aria-label="Lihat landing page Agensi">Lihat Landing Page</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="cv">
+  <h2 class="title">Curriculum Vitae</h2>
+  <div class="cv-box">
+    <div>
+      <p style="font-weight:600">CV Farel Afta Piandra</p>
+      <p style="color:var(--muted)">Klik tombol di bawah untuk lihat atau download file PDF.</p>
+    </div>
+    <div class="cv-actions">
+      <a class="btn-outline" href="CV/CV_farel.pdf" target="_blank" rel="noopener">Lihat CV</a>
+      <a class="btn" href="CV/CV_farel.pdf" download>Download CV</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2 class="title">Contact Me</h2>
+  <div class="contact-box">
+    <div class="contact-item">
+      <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" fill="#25D366">
+        <path d="M19.05 4.94A9.94 9.94 0 0 0 12 2C6.48 2 2 6.48 2 12c0 1.76.46 3.49 1.33 5.01L2 22l5.12-1.33A9.95 9.95 0 0 0 12 22c5.52 0 10-4.48 10-10 0-2.65-1.03-5.2-2.95-7.06Zm-7.05 15.4a8.3 8.3 0 0 1-4.24-1.16l-.3-.18-3.04.79.81-2.96-.2-.31A8.3 8.3 0 1 1 12 20.34Zm4.54-6.22c-.25-.13-1.47-.73-1.69-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.74-.66-1.24-1.48-1.38-1.73-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.41 1.02 2.58.12.17 1.74 2.66 4.21 3.73.59.26 1.06.41 1.42.52.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.1-.23-.17-.48-.29Z"/>
+      </svg>
+      <a class="contact-link" href="https://wa.me/6281268286077" target="_blank" rel="noopener">WhatsApp: 081268286077</a>
+    </div>
+    <div class="contact-item">
+      <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true" fill="#0a7f63">
+        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm-.4 2L12 11.25 4.4 6h15.2ZM4 18V8.2l7.43 5.14a1 1 0 0 0 1.14 0L20 8.2V18H4Z"/>
+      </svg>
+      <a class="contact-link" href="mailto:pesanfarel@gmail.com">Email: pesanfarel@gmail.com</a>
+    </div>
+    <br>
+    <p style="color:var(--muted)">Tersedia untuk kerja, freelance, dan kolaborasi digital project.</p>
+  </div>
+</section>
+
+<footer>
+  (c) 2026 Portfolio Farel Afta Piandra
+</footer>
+
+</body>
+</html>
